@@ -79,6 +79,8 @@ LOCAL_COPY_HEADERS := $(addprefix include/curl/,$(CURL_HEADERS))
 LOCAL_MODULE:= libcurl
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_MODULE_TAGS := optional
+
 # Copy the licence to a place where Android will find it.
 # Actually, this doesn't quite work because the build system searches
 # for NOTICE files before it gets to this point, so it will only be seen
@@ -100,7 +102,7 @@ LOCAL_SRC_FILES := $(addprefix src/,$(CURL_CFILES))
 
 LOCAL_MODULE := curl
 LOCAL_MODULE_TAGS := optional
-LOCAL_STATIC_LIBRARIES := libcurl
+LOCAL_SHARED_LIBRARIES := libcurl
 LOCAL_SYSTEM_SHARED_LIBRARIES := libc
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include $(LOCAL_PATH)/lib
