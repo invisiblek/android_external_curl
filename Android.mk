@@ -71,14 +71,15 @@ CURL_HEADERS := \
 
 LOCAL_SRC_FILES := $(addprefix lib/,$(CSOURCES))
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include/
+LOCAL_C_INCLUDES += external/openssl/include
+LOCAL_C_INCLUDES += external/zlib
 LOCAL_CFLAGS += $(common_CFLAGS)
+LOCAL_SHARED_LIBRARIES := libz libssl libcrypto
 
 LOCAL_COPY_HEADERS_TO := libcurl/curl
 LOCAL_COPY_HEADERS := $(addprefix include/curl/,$(CURL_HEADERS))
 
 LOCAL_MODULE:= libcurl
-LOCAL_MODULE_TAGS := optional
-
 LOCAL_MODULE_TAGS := optional
 
 # Copy the licence to a place where Android will find it.
@@ -102,7 +103,7 @@ LOCAL_SRC_FILES := $(addprefix src/,$(CURL_CFILES))
 
 LOCAL_MODULE := curl
 LOCAL_MODULE_TAGS := optional
-LOCAL_SHARED_LIBRARIES := libcurl
+LOCAL_SHARED_LIBRARIES := libcurl libz libssl
 LOCAL_SYSTEM_SHARED_LIBRARIES := libc
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include $(LOCAL_PATH)/lib
