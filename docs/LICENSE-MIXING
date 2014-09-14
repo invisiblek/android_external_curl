@@ -55,6 +55,10 @@ NSS     http://www.mozilla.org/projects/security/pki/nss/
         grant you different permissions and impose different obligations. You
         should select the license that best meets your needs.
 
+axTLS   http://axtls.sourceforge.net/
+
+        (May be used for SSL/TLS support) Uses a Modified BSD-style license.
+
 c-ares  http://daniel.haxx.se/projects/c-ares/license.html
 
         (Used for asynchronous name resolves) Uses an MIT license that is very
@@ -89,12 +93,6 @@ GNU GSS http://www.gnu.org/software/gss/
         (May be used for GSS support) GNU GSS is GPL licensed. Note that you
         may not distribute binary curl packages that uses this if you build
         curl to also link and use any Original BSD licensed libraries!
-
-fbopenssl
-
-        (Used for SPNEGO support) Unclear license. Based on its name, I assume
-        that it uses the OpenSSL license and thus shares the same issues as
-        described for OpenSSL above.
 
 libidn  http://josefsson.org/libidn/
 

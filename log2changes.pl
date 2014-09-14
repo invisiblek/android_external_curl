@@ -34,9 +34,7 @@ while(<STDIN>) {
         my $ref = $2;
         if ($ref =~ /refs\/tags\/curl-([0-9_]*)/) {
             $tag = $1;
-            $tag =~ tr/_/./; 
-        } else {
-            $tag = '';
+            $tag =~ tr/_/./;
         }
     }
     elsif($l =~ /^Author: *(.*) +</) {
@@ -54,6 +52,7 @@ while(<STDIN>) {
             # Version entries have a special format
             print "\nVersion " . $tag." ($date)\n";
             $oldc = "";
+            $tag = "";
         }
         if($a ne $c) {
             $extra=sprintf("\n- [%s brought this change]\n\n  ", $a);

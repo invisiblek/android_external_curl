@@ -14,6 +14,7 @@ Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache
+config.cache
 config.guess
 config.log
 config.status
@@ -41,3 +42,8 @@ TAGS
 *~
 aclocal.m4.bak
 CHANGES.dist
+.project
+.cproject
+.settings
+/[0-9]*.patch
+.dirstamp
