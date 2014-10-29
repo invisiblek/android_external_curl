@@ -1,10 +1,5 @@
 # Google Android makefile for curl and libcurl
 #
-# This file can be used when building curl using the full Android source
-# release or the NDK. Most users do not want or need to do this; please
-# instead read the Android section in docs/INSTALL for alternate
-# methods.
-#
 # Place the curl source (including this makefile) into external/curl/ in the
 # Android source tree.  Then build them with 'make curl' or just 'make libcurl'
 # from the Android root. Tested with Android versions 1.5, 2.1-2.3
@@ -49,7 +44,7 @@
 # Dan Fandrich
 # November 2011
 
-LOCAL_PATH:= $(call my-dir)/../..
+LOCAL_PATH:= $(call my-dir)
 
 common_CFLAGS := -Wpointer-arith -Wwrite-strings -Wunused -Winline -Wnested-externs -Wmissing-declarations -Wmissing-prototypes -Wno-long-long -Wfloat-equal -Wno-multichar -Wsign-compare -Wno-format-nonliteral -Wendif-labels -Wstrict-prototypes -Wdeclaration-after-statement -Wno-system-headers -DHAVE_CONFIG_H
 
@@ -71,6 +66,7 @@ CURL_HEADERS := \
 
 LOCAL_SRC_FILES := $(addprefix lib/,$(CSOURCES))
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/lib/
 LOCAL_C_INCLUDES += external/openssl/include
 LOCAL_C_INCLUDES += external/zlib
 LOCAL_CFLAGS += $(common_CFLAGS)
@@ -108,7 +104,7 @@ LOCAL_SYSTEM_SHARED_LIBRARIES := libc
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include $(LOCAL_PATH)/lib
 
-# This may also need to include $(CURLX_CFILES) in order to correctly link
+# This may also need to include $(CURLX_ONES) in order to correctly link
 # if libcurl is changed to be built as a dynamic library
 LOCAL_CFLAGS += $(common_CFLAGS)
 
