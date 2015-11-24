@@ -174,14 +174,6 @@ dnl
 INITIAL_LDFLAGS=$LDFLAGS
 INITIAL_LIBS=$LIBS
 
-dnl
-dnl Detect the canonical host and target build environment
-dnl
-
-AC_CANONICAL_HOST
-dnl Get system canonical name
-AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-machine-OS])
-
 dnl Checks for programs.
 
 dnl Our curl_off_t internal and external configure settings
@@ -1498,7 +1490,7 @@ if test "$curl_ssl_msg" = "$init_ssl_msg" && test X"$OPT_SSL" != Xno; then
      ],[
      LDFLAGS="$CLEANLDFLAGS -L$LIB_OPENSSL"
      CPPFLAGS="$CLEANCPPFLAGS -I$PREFIX_OPENSSL/include/openssl -I$PREFIX_OPENSSL/include"
-     AC_CHECK_LIB(crypto, CRYPTO_add_lock,[
+     AC_CHECK_LIB(crypto, HMAC_Init,[
        HAVECRYPTO="yes"
        LIBS="-lcrypto $LIBS"], [
        LDFLAGS="$CLEANLDFLAGS"
@@ -1591,14 +1583,22 @@ if test "$curl_ssl_msg" = "$init_ssl_msg" && test X"$OPT_SSL" != Xno; then
                     DES_set_odd_parity )
 
     AC_MSG_CHECKING([for BoringSSL])
-    if test "x$ac_cv_func_DES_set_odd_parity" != "xyes"; then
-      curl_ssl_msg="enabled (BoringSSL)"
+    AC_COMPILE_IFELSE([
+      AC_LANG_PROGRAM([[
+#include <openssl/base.h>
+      ]],[[
+#ifndef OPENSSL_IS_BORINGSSL
+#error not boringssl
+#endif
+      ]])
+    ],[
+      AC_MSG_RESULT([yes])
       AC_DEFINE_UNQUOTED(HAVE_BORINGSSL, 1,
         [Define to 1 if using BoringSSL.])
-      AC_MSG_RESULT([yes])
-    else
+    ],[
       AC_MSG_RESULT([no])
-    fi
+    ])
+
     AC_MSG_CHECKING([for libressl])
     AC_COMPILE_IFELSE([
       AC_LANG_PROGRAM([[
@@ -2958,12 +2958,6 @@ AC_HEADER_TIME
 CURL_CHECK_STRUCT_TIMEVAL
 CURL_VERIFY_RUNTIMELIBS
 
-AC_CHECK_SIZEOF(size_t)
-AC_CHECK_SIZEOF(long)
-AC_CHECK_SIZEOF(int)
-AC_CHECK_SIZEOF(short)
-CURL_CONFIGURE_LONG
-AC_CHECK_SIZEOF(time_t)
 AC_CHECK_SIZEOF(off_t)
 
 soname_bump=no
